@@ -10,6 +10,7 @@ router.post('/login', UserController.user_login)
 router.post('/sendInvitation', UserController.sent_register_invitation)
 //onboarding upload
 router.post('/profile', authorizationJWT, UserController.profile_upload);
+router.post('/emergencyContact_update', authorizationJWT, UserController.emergencyContacts_upload);
 // router.post('/profile',UserController.profile_upload);
 router.put('/employeeVisa', UserController.employee_updateVisa)
 // Housing
@@ -31,5 +32,7 @@ router.delete('/house/:id', authorizationJWT, UserController.delete_house);
 router.post('/upload', upload.single('file'), UserController.user_upload)
 router.get("/download/:filename", UserController.download_file)
 router.get("/list", UserController.get_fileList)
+
+router.get('/getEmployeeInfo', UserController.get_updated_employee_info)
 
 module.exports = router;

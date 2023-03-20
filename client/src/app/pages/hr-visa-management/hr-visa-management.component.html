@@ -1,56 +1,80 @@
 <app-navbar></app-navbar>
-<mat-tab-group>
-    <mat-tab label="In Progress Visa">
-        <div *ngIf="profiles.length; else elseBlock">
-            <mat-accordion>
-                <mat-expansion-panel hideToggle *ngFor="let p of profiles;let i = index">
-                    <mat-expansion-panel-header class="hr-employee-panel-header">
-                        <mat-panel-title>
-                            {{ p.firstName }} {{p.lastName}}
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            {{getStep(p.step)}}
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <div>
-                        <span>Work Authorization title:</span> <span>{{ p.title }}</span>
-                        <span>Start At:</span> <span>{{ p.start }}</span>
-                        <span>End At:</span> <span>{{ p.end }}</span>
-                        <span>Days Remaining:</span><span>{{ p.title }}</span>
-                        {{fileList[i]}}
-                        <a href='http://localhost:3000/user/download/{{fileList[i]}}'>Download {{fileList[i]}}</a>
-                        <div *ngIf="isStep(p.step); else sendBlock">
-                        <button>approve</button>    <button>reject</button>
+<div class="container">
+    <!-- <form class="form" [formGroup]="searchForm">
+        <mat-form-field class="formField" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-hint>name</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="search('firstName')">search FirstName</button>
+        <button mat-raised-button color="primary" (click)="search('lastName')">search LastName</button>
+        <button mat-raised-button color="primary" (click)="search('preferredName')">search PreferredName</button>
+    </form> -->
+    <mat-tab-group>
+        <mat-tab label="In Progress Visa">
+            <div *ngIf="profiles.length; else elseBlock">
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle *ngFor="let p of profiles;let i = index">
+                        <mat-expansion-panel-header class="hr-employee-panel-header">
+                            <mat-panel-title>
+                                <b>{{ p.firstName }} {{p.lastName}}</b>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                next step: {{getStep(p.nextStep)}}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="grid-panel">
+                            <span>Work Authorization title:</span> <span>{{ p.title }}</span>
+                            <span>Start At:</span> <span>{{ p.startDate }}</span>
+                            <span>End At:</span> <span>{{ p.endDate }}</span>
+                            <!-- <span>Days Remaining:</span><span>{{ p.title }}</span> -->
+                            <div *ngIf="fileList[i]">
+                                {{fileList[i]}}
+                                <a href='http://localhost:3000/user/download/{{fileList[i]}}'>Download
+                                    {{fileList[i]}}</a>
+                            </div>
+                            <div *ngIf="isStep(p.nextStep); else sendBlock">
+                                <button (click)="approve(p._id,p.nextStep,i)">approve</button>
+                                <button (click)="openDialog(p._id,p.nextStep,i)">reject</button>
+                            </div>
+                            <ng-template #sendBlock><button
+                                    (click)="sendNotification(p.firstName,p.email,p.nextStep)">Send
+                                    Notification</button></ng-template>
                         </div>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-        <ng-template #elseBlock>No profile found</ng-template>
-    </mat-tab> <mat-tab label="All Visa">
-        <div *ngIf="allProfiles.length; else elseBlock">
-            <mat-accordion>
-                <mat-expansion-panel hideToggle *ngFor="let p of allProfiles;let i = index">
-                    <mat-expansion-panel-header class="hr-employee-panel-header">
-                        <mat-panel-title>
-                            {{ p.firstName }} {{p.lastName}}
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            {{getStep(p.step)}}
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <div>
-                        <span>Work Authorization title:</span> <span>{{ p.title }}</span>
-                        <span>Start At:</span> <span>{{ p.start }}</span>
-                        <span>End At:</span> <span>{{ p.end }}</span>
-                        <span>Days Remaining:</span><span>{{ p.title }}</span>
-                        {{fileList[i]}}
-                        <a href='http://localhost:3000/user/download/{{fileList[i]}}'>Download {{fileList[i]}}</a>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-        <ng-template #elseBlock>No profile found</ng-template>
-        <ng-template #sendBlock><button>Send Notification</button></ng-template>
-    </mat-tab>
-</mat-tab-group>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <ng-template #elseBlock>No profile found</ng-template>
+        </mat-tab> <mat-tab label="All Visa">
+            <div *ngIf="allProfiles.length; else elseBlock">
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle *ngFor="let p of allProfiles;let i = index">
+                        <mat-expansion-panel-header class="hr-employee-panel-header">
+                            <mat-panel-title>
+                                {{ p.firstName }} {{p.lastName}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                next step: {{getStep(p.nextStep)}}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="grid-panel">
+                            <span>Work Authorization title:</span> <span>{{ p.title }}</span>
+                            <span>Start At:</span> <span>{{ p.startDate }}</span>
+                            <span>End At:</span> <span>{{ p.endDate }}</span>
+                            <!-- <span>Days Remaining:</span><span>{{ p.title }}</span> -->
+                            <div *ngFor="let f of allFileList[i];let j = index">
+                                <!-- {{arr}}{{j}} -->
+                                <p>{{visa[j]}}:
+                                    <a *ngIf="f" href='http://localhost:3000/user/download/{{f}}'>Download
+                                        {{f}}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <ng-template #elseBlock>No profile found</ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+</div>

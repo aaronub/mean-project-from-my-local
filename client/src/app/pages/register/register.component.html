@@ -1,21 +1,33 @@
-<div class="register-input-container">
+
+<div class="bg"></div><div class="register-input-container2">
+    <div class="register-input-container">
+    <h1>
+        REGISTER
+    </h1>
     <form [formGroup]="registerForm">
+        <p>Min Length:5</p>
         <mat-form-field>
             <mat-label>username</mat-label>
-            <input matInput formControlName="username">
+            <input matInput formControlName="username" minlength="5" >
         </mat-form-field>
-        
+
         <mat-form-field>
             <mat-label>email</mat-label>
-            <input matInput formControlName="email">
+            <input matInput formControlName="email" type="email">
         </mat-form-field>
-        
+        <p>Min Length:8</p>
         <mat-form-field>
             <mat-label>password</mat-label>
-            <input matInput formControlName="password">
+            <input matInput formControlName="password" minlength="8">
+
         </mat-form-field>
     </form>
-    
-    <button mat-raised-button color="primary" (click)="register()">Register</button>
 
+    <div *ngIf="registerForm.valid;else registerBlock">
+        <button mat-raised-button (click)="register()">Register</button>
+    </div>
+    <ng-template #registerBlock>
+        <button mat-raised-button (click)="register()" disabled>Register</button>
+    </ng-template>
+</div>
 </div>

@@ -1,22 +1,37 @@
-.container{
-    background-color: rgb(241, 241, 241);
-
+.container {
+  /* background-color: rgb(241, 241, 241); */
+  background-color: #e4e7ed;
 }
-.personal-container{
-    background-color: white;
-    box-shadow: 10px 1px 20px rgb(235, 235, 235);
-    padding: 20px;
-    width: 80%;
-    margin: auto;
+.personal-container {
+  background-color: white;
+  box-shadow: 15px 1px 25px rgba(172, 169, 182, 0.244);
+  padding: 20px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.form{
-        min-width: 150px;
-        max-width: 80%;
-        /* width: 100%; */
-        margin: auto;
-        display: flex;
-        flex-direction: column
+.personal-container2 {
+  margin: auto;
 }
-.formField{
-    width: 200px;
+.form {
+  min-width: 150px;
+  max-width: 70%;
+  /* width: 100%; */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form div {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.formField {
+  width: 400px;
+  margin: 0 20px;
+  /* border: 1px saddlebrown solid; */
 }

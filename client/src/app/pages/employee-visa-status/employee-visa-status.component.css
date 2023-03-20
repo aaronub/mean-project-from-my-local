@@ -1,0 +1,12 @@
+.personal-container{
+    background-color: white;
+    box-shadow: 15px 10px 25px rgba(172, 169, 182, 0.244);
+    padding: 20px;
+    width: 80%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+    border-radius: 5px;
+}

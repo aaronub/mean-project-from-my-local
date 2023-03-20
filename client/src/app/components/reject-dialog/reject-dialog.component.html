@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Reject</h1>
+<div mat-dialog-content>
+  <p>provide feedback:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>feedback</mat-label>
+    <input matInput placeholder="No Feedback"  [(ngModel)]="data.feedback">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <!-- <button mat-button [mat-dialog-close]="data.feedback" cdkFocusInitial>Ok</button> -->
+  <button mat-button (click)="reject()" [mat-dialog-close]="true">Reject</button>
+  <button mat-button (click)="onNoClick()" >Close</button>
+</div>

@@ -1,16 +1,19 @@
 <app-navbar></app-navbar>
-<form class="form" [formGroup]="searchForm">
-    <mat-form-field class="formField">
-        <mat-label>firstName</mat-label>
-        <input matInput formControlName="name">
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="search('firstName')">search FirstName</button>
-    <button mat-raised-button color="primary" (click)="search('lastName')">search LastName</button>
-    <button mat-raised-button color="primary" (click)="search('preferredName')">search PreferredName</button>
-</form>
-<div *ngIf="profiles.length; else elseBlock">
-    <mat-accordion>
-        <!-- <mat-list>
+<div class="send-invitation-container">
+    <div class="container">
+        <form class="form" [formGroup]="searchForm">
+            <mat-form-field class="formField" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-hint>name</mat-hint>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="search('firstName')">search FirstName</button>
+            <button mat-raised-button color="primary" (click)="search('lastName')">search LastName</button>
+            <button mat-raised-button color="primary" (click)="search('preferredName')">search PreferredName</button>
+        </form>
+        <div *ngIf="profiles.length; else elseBlock">
+            <mat-accordion>
+                <!-- <mat-list>
             <mat-list-item *ngFor="let p of profiles">
                 <span matListItemTitle>{{ p.firstName }} {{p.lastName}}</span>
                 <span matListItemLine>SSN: {{ p.SSN }}</span>
@@ -19,72 +22,88 @@
                 <span matListItemLine>Phone Number: {{ p.cellPhoneNumber }}</span>
             </mat-list-item>
         </mat-list> -->
-        <mat-expansion-panel hideToggle *ngFor="let p of profiles">
-            <mat-expansion-panel-header class="hr-employee-panel-header">
-                <mat-panel-title>
-                    {{ p.firstName }} {{p.lastName}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    <div class="hr-employee-panel-desc">
-                        <div>
-                            <span>SSN:</span> <span>{{ p.SSN }}</span>
+                <mat-expansion-panel hideToggle *ngFor="let p of profiles">
+                    <mat-expansion-panel-header class="hr-employee-panel-header">
+                        <mat-panel-title>
+                            {{ p.firstName }} {{p.lastName}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <div class="hr-employee-panel-desc">
+                                <div>
+                                    <span>SSN:</span> <span>{{ p.SSN }}</span>
+                                </div>
+                                <div>
+                                    <span>Work Authorization title:</span> <span>{{ p.title }}</span>
+                                </div>
+                                <div>
+                                    <span>Email:</span> <span>{{ p.email }}</span>
+                                </div>
+                                <div>
+                                    <span>Phone Number:</span> <span>{{ p.cellPhoneNumber }}</span>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="panel-box-container">
+                        
+                        <div class="panel-box">
+                            <p class="font-bold">Personal Info</p>
+                            <p><span>First Name: </span><span>{{p.firstName}}</span></p>
+                            <p><span>Last Name: </span><span>{{p.lastName}}</span></p>
+                            <p><span>Middle Name: </span><span>{{p.middleName}}</span></p>
+                            <p><span>Preferred Name: </span><span>{{p.preferredName}}</span></p>
+                            <p><span>Email: </span><span>{{p.email}}</span></p>
+                            <p><span>Date of Birth: </span><span>{{p.dateOfBirth | date : 'mediumDate'}}</span></p>
+                            <p><span>Gender: </span><span>{{p.gender}}</span></p>
+                            <p><span>SSN: </span><span>{{p.SSN}}</span></p>
+                            <!-- </div>
+                <div class="panel-box">
+                    </div> -->
+
                         </div>
-                        <div>
-                            <span>Work Authorization title:</span> <span>{{ p.title }}</span>
+
+                        <div class="two-panel-container">
+                            <div class="panel-box">
+                                <p class="font-bold">Address</p>
+                                <p><span>Building/apt#: </span><span>{{p.address.apt}}</span></p>
+                                <p><span>Street: </span><span>{{p.address.street}}</span></p>
+                                <p><span>City: </span><span>{{p.address.city}}</span></p>
+                                <p><span>State: </span><span>{{p.address.state}}</span></p>
+                                <p><span>Zip: </span><span>{{p.address.zip}}</span></p>
+                            </div>
+                            <div class="line">
+
+                            </div>
+                            <div class="panel-box">
+                                <p class="font-bold">Contact Info</p>
+                                <p><span>Cell Phone Number: </span><span>{{p.cellPhoneNumber}}</span></p>
+                                <p><span>Work Phone Number: </span><span>{{p.workPhoneNumber}}</span></p>
+                            </div>
                         </div>
-                        <div>
-                            <span>Email:</span> <span>{{ p.email }}</span>
+
+                        <div class="panel-box">
+                            <p class="font-bold">Employment</p>
+                            <p><span>Visa: </span><span>{{p.title}}</span></p>
+                            <p><span>Start Date: </span><span>{{p.startDate}}</span></p>
+                            <p><span>End Date: </span><span>{{p.endDate}}</span></p>
                         </div>
-                        <div>
-                            <span>Phone Number:</span> <span>{{ p.cellPhoneNumber }}</span>
+                        <div class="panel-box">
+                            <p class="font-bold">Emergency Contacts</p>
+                            <div *ngFor="let c of p.emergencyContacts">
+                                <p><span>First Name: </span><span>{{c.firstName}}</span></p>
+                                <p><span>Last Name: </span><span>{{c.lastName}}</span></p>
+                                <p><span>Middle Name: </span><span>{{c.middleName}}</span></p>
+                                <p><span>Phone: </span><span>{{c.phone}}</span></p>
+                                <p><span>Email: </span><span>{{c.email}}</span></p>
+                                <p><span>Relationship: </span><span>{{c.relationship}}</span></p>
+                            </div>
                         </div>
+
                     </div>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="panel-box-container">
-            <div class="panel-box">Name:
-                <p><span>firstName: </span><span>{{p.firstName}}</span></p>
-                <p><span>lastName: </span><span>{{p.lastName}}</span></p>
-                <p><span>middleName: </span><span>{{p.middleName}}</span></p>
-                <p><span>preferredName: </span><span>{{p.preferredName}}</span></p>
-                <p><span>email: </span><span>{{p.email}}</span></p>
-                <p><span>date of birth: </span><span>{{p.dateOfBirth}}</span></p>
-                <p><span>gender: </span><span>{{p.gender}}</span></p>
-                <p><span>SSN: </span><span>{{p.SSN}}</span></p>
-            </div>
+                </mat-expansion-panel>
+            </mat-accordion>
 
-            <div class="panel-box">Address:
-                <p><span>Building/apt#: </span><span>{{p.apt}}</span></p>
-                <p><span>street: </span><span>{{p.street}}</span></p>
-                <p><span>city: </span><span>{{p.city}}</span></p>
-                <p><span>state: </span><span>{{p.state}}</span></p>
-                <p><span>zip: </span><span>{{p.zip}}</span></p>
-            </div>
-            <div class="panel-box">Contact Info:
-                <p><span>cellPhoneNumber: </span><span>{{p.cellPhoneNumber}}</span></p>
-                <p><span>workPhoneNumber: </span><span>{{p.workPhoneNumber}}</span></p>
-            </div>
-            <div class="panel-box">Employment:
-                <p><span>visa title: </span><span>{{p.title}}</span></p>
-                <p><span>startDate: </span><span>{{p.startDate}}</span></p>
-                <p><span>endDate: </span><span>{{p.endDate}}</span></p>
-            </div>
-            <div class="panel-box">Emergency Contact:
-                <div *ngFor="let c of p.emergencyContacts">
-                    <p><span>firstName: </span><span>{{c.firstName}}</span></p>
-                    <p><span>lastName: </span><span>{{c.lastName}}</span></p>
-                    <p><span>middleName: </span><span>{{c.middleName}}</span></p>
-                    <p><span>phone: </span><span>{{c.phone}}</span></p>
-                    <p><span>email: </span><span>{{c.email}}</span></p>
-                    <p><span>relationship: </span><span>{{c.relationship}}</span></p>
-                </div>
-            </div>
-            
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <!-- <mat-list>
+            <!-- <mat-list>
         <mat-list-item *ngFor="let p of profiles">
             <span matListItemTitle>{{ p.firstName }} {{p.lastName}}</span>
             <span matListItemLine>SSN: {{ p.SSN }}</span>
@@ -93,5 +112,7 @@
             <span matListItemLine>Phone Number: {{ p.cellPhoneNumber }}</span>
         </mat-list-item>
     </mat-list> -->
+        </div>
+        <ng-template #elseBlock>No profile found</ng-template>
+    </div>
 </div>
-<ng-template #elseBlock>No profile found</ng-template>

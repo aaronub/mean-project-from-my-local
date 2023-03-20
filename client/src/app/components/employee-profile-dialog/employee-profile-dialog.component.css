@@ -1,0 +1,25 @@
+.panel-box-container {
+    display: flex;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.panel-box {
+    background-color: white;
+    padding: 20px;
+    width: 49%;
+    border-right: 1px solid rgb(101, 202, 252);
+    border-bottom: 1px solid rgb(101, 202, 252);
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: firebrick 1px 1px 1px;
+
+}
+
+.panel-box:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.font-bold {
+    font-weight: bold;
+}

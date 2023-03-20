@@ -20,7 +20,7 @@
     <mat-grid-list *ngIf="house.residents.length" cols="{{ house.residents.length }}" rowHeight="150px">
         <!-- TODO: link to employee profile -->
         <mat-grid-tile *ngFor="let employee of house.residents">
-            <mat-card class="felx-column">
+            <mat-card class="felx-column" (click)="onEmployeeClick(employee._id)">
                 <p>{{ employee.profile.firstName + " " + employee.profile.lastName }}</p>
                 <p>{{ employee.profile.cellPhoneNumber }}</p>
                 <p>{{ employee.email }}</p>
@@ -41,7 +41,7 @@
 
     <h3 class="font-bold">Facility Reports</h3>
     <div *ngFor="let report of reportsForCurrPage">
-        <mat-card (click)="onClickCard(report._id)">
+        <mat-card (click)="onReportClick(report._id)">
             <mat-card-header>
                 <mat-card-title>{{ report.title }}</mat-card-title>
                 <span class='{{ report.status }}'>●</span><span class="font-secondary">{{ report.status }}</span>

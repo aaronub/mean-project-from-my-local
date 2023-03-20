@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const authenticateJWT = (req, res, next) => {
     const token = req.headers['authorization'].split(' ')[1]
-    console.log("token:"+token)
+    // console.log("token:"+token)
     if (token) {
         // jwt.verify(token, process.env.JWT_SECRET, (error, decode) => {
         //     if (error) {
@@ -25,9 +25,9 @@ const authenticateJWT = (req, res, next) => {
 
 const authorizationJWT = (req, res, next) => {
     // const token = req.headers['authorization'].split(' ')[1]
-    console.log(`req.headers['authorization']=`, req.headers['authorization'])
+    // console.log(`req.headers['authorization']=`, req.headers['authorization'])
     const token = req.headers['authorization'].split(' ')[1]
-    console.log("token:"+token)
+    // console.log("token:"+token)
     if (token) {
         // jwt.verify(token, process.env.JWT_SECRET, (error, decode) => {
         //     // if (error || decode.role !== 'admin') {

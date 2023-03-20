@@ -1,24 +1,32 @@
 .layout {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
-
+.card {
+    border-radius: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+  box-shadow: 2px 2px 15px rgb(145 145 169 / 37%);
+}
+.layout:hover {
+  transform: scale(1.01);
+}
 .flex-column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .font-bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 button {
-    align-self: center;
+  align-self: center;
 }
 
 .corner {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

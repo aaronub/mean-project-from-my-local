@@ -31,27 +31,59 @@ export class HrApplicationDetailComponent implements OnInit {
       .subscribe((res: any) => {
         this.employee = res.data;
         this.profile = this.employee.profile;
+        if (this.profile.pic)
+        this.documentsList = { ...this.documentsList, picture: this.profile.pic };
+      if (this.profile.driverLicense&&this.profile.driverLicense.document)
+        this.documentsList = {
+          ...this.documentsList,
+          driverLicense: this.profile.driverLicense.document,
+        };
+      if (this.profile.optReceipt)
+        this.documentsList = {
+          ...this.documentsList,
+          optReceipt: this.profile.optReceipt,
+        };
+      if (this.profile.optEAD)
+        this.documentsList = {
+          ...this.documentsList,
+          optEAD: this.profile.optEAD,
+        };
+      if (this.profile.i20)
+        this.documentsList = { ...this.documentsList, i20: this.profile.i20 };
+      if (this.profile.i983)
+        this.documentsList = { ...this.documentsList, i983: this.profile.i983 };
+        console.log(this.documentsList)
       });
   }
-
-  fileList: string[] = [];
-  showFileList() {
-    const response = this.fileService.fileListService()
-    response
-      .pipe(catchError((err) => of([{ err }])))
-      .subscribe((file: any) => {
-        console.log('file=', file)
-        const userFile = [...file].filter((elem: any) => {
-          if (elem === this.profile.userOpt || elem === this.profile.userPic || elem === this.profile.userDriverlicense) {
-            console.log('inside filter true')
-            return true
-          }
-          console.log('inside filter false')
-          return false
-        })
-        this.fileList = userFile
-      })
+  showDocuments = false
+  documentsList: {} = {};
+  showFileList(){
+    this.showDocuments = !this.showDocuments
   }
+  // showFileList() {
+  //   if (profile.pic)
+  //   this.documentsList = { ...this.documentsList, picture: profile.pic };
+  // if (profile.driverLicense&&profile.driverLicense.document)
+  //   this.documentsList = {
+  //     ...this.documentsList,
+  //     driverLicense: profile.driverLicense.document,
+  //   };
+  // if (profile.optReceipt)
+  //   this.documentsList = {
+  //     ...this.documentsList,
+  //     optReceipt: profile.optReceipt,
+  //   };
+  // if (profile.optEAD)
+  //   this.documentsList = {
+  //     ...this.documentsList,
+  //     optEAD: profile.optEAD,
+  //   };
+  // if (profile.i20)
+  //   this.documentsList = { ...this.documentsList, i20: profile.i20 };
+  // if (profile.i983)
+  //   this.documentsList = { ...this.documentsList, i983: profile.i983 };
+  //   console.log(this.documentsList)
+  // }
 
   onApprove(): void {
     const requestBody = { id: this.employee._id };

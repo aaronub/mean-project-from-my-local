@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>{{ profile.firstName + " " + profile.lastName + "'s Profile" }}</h1>
+<div class="panel-box-container">
+    <div class="panel-box">
+        <p class="font-bold">Personal Info</p>
+        <p><span>First Name: </span><span>{{profile.firstName}}</span></p>
+        <p><span>Last Name: </span><span>{{profile.lastName}}</span></p>
+        <p><span>Middle Name: </span><span>{{profile.middleName}}</span></p>
+        <p><span>Preferred Name: </span><span>{{profile.preferredName}}</span></p>
+        <p><span>Email: </span><span>{{profile.email}}</span></p>
+        <p><span>Date of Birth: </span><span>{{profile.dateOfBirth | date : 'mediumDate'}}</span></p>
+        <p><span>Gender: </span><span>{{profile.gender}}</span></p>
+        <p><span>SSN: </span><span>{{profile.SSN}}</span></p>
+    </div>
+
+    <div class="panel-box">
+        <p class="font-bold">Address</p>
+        <p><span>Building/apt#: </span><span>{{profile.address.apt}}</span></p>
+        <p><span>Street: </span><span>{{profile.address.street}}</span></p>
+        <p><span>City: </span><span>{{profile.address.city}}</span></p>
+        <p><span>State: </span><span>{{profile.address.state}}</span></p>
+        <p><span>Zip: </span><span>{{profile.address.zip}}</span></p>
+    </div>
+
+    <div class="panel-box">
+        <p class="font-bold">Contact Info</p>
+        <p><span>Cell Phone Number: </span><span>{{profile.cellPhoneNumber}}</span></p>
+        <p><span>Work Phone Number: </span><span>{{profile.workPhoneNumber}}</span></p>
+    </div>
+
+    <div class="panel-box">
+        <p class="font-bold">Employment</p>
+        <p><span>Visa: </span><span>{{profile.title}}</span></p>
+        <p><span>Start Date: </span><span>{{profile.startDate}}</span></p>
+        <p><span>End Date: </span><span>{{profile.endDate}}</span></p>
+    </div>
+
+    <div class="panel-box">
+        <p class="font-bold">Emergency Contacts</p>
+        <div *ngFor="let contact of profile.emergencyContacts">
+            <p><span>First Name: </span><span>{{contact.firstName}}</span></p>
+            <p><span>Last Name: </span><span>{{contact.lastName}}</span></p>
+            <p><span>Middle Name: </span><span>{{contact.middleName}}</span></p>
+            <p><span>Phone: </span><span>{{contact.phone}}</span></p>
+            <p><span>Email: </span><span>{{contact.email}}</span></p>
+            <p><span>Relationship: </span><span>{{contact.relationship}}</span></p>
+        </div>
+    </div>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -1,31 +1,31 @@
 <app-navbar></app-navbar>
-<h1>Employee Visa Management</h1>
-<h2>Upload Files</h2>
+
+    <div class="personal-container">
+        <h1>Employee Visa Management</h1>
+        <h2>Upload Files</h2>
+        <div [ngSwitch]='next'>
+            <p><b>last feedback:</b> {{fb}}</p>
+            <p><b>next: </b>{{getStep(next)}}</p>
+            <div *ngSwitchCase="2">
+                <input type="file" (change)="onFilePicked($event)" name='optEAD'>
+                <button (click)="onFileUpload($event)" mat-raised-button color="primary">Upload OPT EAD</button>
+            </div>
+            <div *ngSwitchCase="4">
+                <input type="file" (change)="onFilePicked($event)" name='i983'>
+                <button (click)="onFileUpload($event)" color="primary" mat-raised-button>Upload i-983</button>
+            </div>
+            <div *ngSwitchCase="6">
+                <input type="file" (change)="onFilePicked($event)" name='i20'>
+                <button (click)="onFileUpload($event)" color="primary" mat-raised-button>Upload i-20</button>
+            </div>
+        </div>
+
+        <div *ngIf="next===1 || next ===3 || next ===5">Waiting for HR to approved</div>
+        <div *ngIf="next > 7">All documents have been approved</div>
 
 
 
-<div [ngSwitch]='next'>
-    <p>next:{{getStep(next)}}</p>
-    <div *ngSwitchCase="2">
-        <input type="file" (change)="onFilePicked($event)" name='optEAD'>
-        <button (click)="onFileUpload()">Upload OPT EAD</button>
-    </div>
-    <div *ngSwitchCase="4">
-        <input type="file" (change)="onFilePicked($event)" name='i983'>
-        <button (click)="onFileUpload()">Upload i-983</button>
-    </div>
-    <div *ngSwitchCase="6">
-        <input type="file" (change)="onFilePicked($event)" name='i20'>
-        <button (click)="onFileUpload()">Upload i-20</button>
-    </div>
-</div>
-
-<div *ngIf="next===1 || next ===3 || next ===5">Waiting for HR to approved</div>
-<div *ngIf="next > 7">All documents have been approved</div>
-
-
-
-<!-- <div *ngIf="next%2===0; then thenBlock else elseBlock"></div>
+        <!-- <div *ngIf="next%2===0; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
     <div [ngSwitch]='next'>
         <p>next:{{getStep(next)}}</p>
@@ -45,5 +45,6 @@
 </ng-template>
 <ng-template #elseBlock>Waiting for HR to approve</ng-template>
 <div *ngIf="next > 6">All documents have been approved</div> -->
-<!-- <input type="file" [(ngModel)]="test">
+        <!-- <input type="file" [(ngModel)]="test">
 <div>{{test}}</div> -->
+    </div>

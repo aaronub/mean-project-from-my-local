@@ -6,20 +6,22 @@
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="name">
+    
             </mat-form-field>
         
             <mat-form-field appearance="fill">
                 <mat-label>email</mat-label>
                 <input matInput formControlName="email">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+   
             </mat-form-field>
             
         </form>
         <button mat-raised-button color="primary" (click)="invite()">Send</button>
     </div>
-</div>
-<div class="sent-invitation-container">
+
     <div class="table">
-        <table mat-table [dataSource]="invitations">
+        <table mat-table [dataSource]="invitations" >
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Name </th>
               <td mat-cell *matCellDef="let element"> {{element.name}} </td>

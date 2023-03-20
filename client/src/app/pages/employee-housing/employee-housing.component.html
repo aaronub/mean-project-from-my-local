@@ -14,8 +14,8 @@
         <mat-grid-tile class="bold">Roommates</mat-grid-tile>
         <mat-grid-tile *ngFor="let roommate of house.roommates">
             <div class="flex-container">
-                <p>{{ roommate.firstName }} {{ roommate.lastName }}</p>
-                <p>{{ roommate.cellPhoneNumber }}</p>
+                <p>{{ roommate.profile.firstName }} {{ roommate.profile.lastName }}</p>
+                <p>{{ roommate.profile.cellPhoneNumber }}</p>
             </div>
         </mat-grid-tile>
     </mat-grid-list>

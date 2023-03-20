@@ -140,7 +140,7 @@ exports.user_login = async (req, res) => {
         role: user.role,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "30m",
+        expiresIn: "3h",
       });
       res.status(200).json({ jwt: token, user: user });
     }
@@ -153,8 +153,6 @@ async function updateProfile(username, profileData) {
   try {
     console.log(username);
     const user = await User.findOne({ username: username });
-    user.status = "Pending";
-    await user.save();
     if (user.profile) {
       Profile.findById(user.profile, (err, profile) => {
         if (err) {
@@ -186,6 +184,12 @@ async function updateProfile(username, profileData) {
               profile.optReceipt = profileData.optReceipt;
             if (profileData.driverLicense)
               profile.driverLicense = profileData.driverLicense;
+            if (profileData.title)
+                  profile.title=profileData.title
+            if (profileData.startDate)
+      profile.startDate=profileData.startDate
+            if (profileData.endDate)
+      profile.endDate=profileData.endDate
             // save the updated profile to MongoDB
             profile.save((err, updatedProfile) => {
               if (err) {
@@ -213,12 +217,17 @@ async function updateProfile(username, profileData) {
             profile.emergencyContacts = profileData.emergencyContacts;
             profile.optReceipt = profileData.optReceipt;
             profile.driverLicense = profileData.driverLicense;
+                  profile.title=profileData.title
+      profile.startDate=profileData.startDate
+      profile.endDate=profileData.endDate
             profile.save();
             User.updateOne({ username: username }, { profile: profile._id });
           }
         }
       });
     } else {
+      user.status = "Pending";
+      await user.save();
       var profile = new Profile();
       profile.step = profileData.step;
       profile.nextStep = profileData.nextStep;
@@ -238,6 +247,9 @@ async function updateProfile(username, profileData) {
       profile.emergencyContacts = profileData.emergencyContacts;
       profile.optReceipt = profileData.optReceipt;
       profile.driverLicense = profileData.driverLicense;
+            profile.title=profileData.title
+      profile.startDate=profileData.startDate
+      profile.endDate=profileData.endDate
       await profile.save();
       await User.updateOne({ username: username }, { profile: profile._id });
     }
@@ -261,7 +273,19 @@ exports.profile_upload = async (req, res) => {
     console.log("failed to update profile: ", e);
   }
 };
-
+exports.emergencyContacts_upload = async (req, res) => {
+  try {
+    const payload = req.payload;
+    const { profileData } = req.body;
+    const username = payload.username;
+    const employee = await User.findOne({ username: username });
+    // const profile = await Profile.findById(employee.profile);
+    await Profile.findByIdAndUpdate(employee.profile, profileData);
+    res.status(201).json({ message: "successfully update emergencyContacts" });
+  } catch (e) {
+    console.log("failed to update emergencyContacts: ", e);
+  }
+};
 //make nextStep+1, update optEAD, i983, i20 file name if any
 exports.employee_updateVisa = async (req, res) => {
   try {
@@ -311,7 +335,13 @@ exports.get_house = async (req, res) => {
     const employee = await User.findOne({ email: email });
     const profile = await Profile.findById(employee.profile);
     const house = await House.findById(profile.house)
-      .populate("residents")
+      .populate({
+        path: "residents",
+        populate: {
+          path: "profile",
+          select: ["firstName", "lastName", "cellPhoneNumber"],
+        },
+      })
       .populate("reports");
     if (!house)
       return res
@@ -319,11 +349,12 @@ exports.get_house = async (req, res) => {
         .json({ message: "House hasn't been assigned by HR" });
     const houseInfo = {
       address: house.address,
-      roommates: house.residents.filter((user) => user.email !== email),
+      roommates: house.residents.filter(async (user) => user.email !== email),
       reports: house.reports.filter((report) =>
         report.createdBy.equals(employee.id)
       ),
     };
+    console.log(houseInfo)
     res.status(200).json({ house: houseInfo });
   } catch (err) {
     console.log(err);
@@ -590,3 +621,28 @@ exports.get_fileList = async (req, res) => {
   let x = r.Contents.map((item) => item.Key);
   res.send(x);
 };
+
+
+exports.get_updated_employee_info = async (req, res) => {
+  const header = req.headers["authorization"];
+  let token;
+
+  if (!header) {
+    res.status(400).json({ message: "token required" });
+    return;
+  }
+  token = header.split(" ")[1];
+  console.log("register token: ", token);
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('payload: ', payload)
+    const user = await User.findOne({
+      username: payload.username,
+      email: payload.email
+    }).populate('profile')
+    res.status(200).json({ user : user})
+    
+  } catch (e) {
+    throw new Error('fail fetch updated info')
+  }
+}

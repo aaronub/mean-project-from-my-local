@@ -13,7 +13,7 @@ export class RegisterComponent {
   registerToken : string | undefined
   registerForm : FormGroup = this.formBuilder.group({
     username: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', Validators.email],
     password: ['', Validators.required]
   })
 

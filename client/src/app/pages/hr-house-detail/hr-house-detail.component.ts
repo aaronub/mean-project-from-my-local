@@ -7,6 +7,9 @@ import { HouseService } from 'src/app/services/house/house.service';
 import { selectHouseById } from 'src/app/store/house/house.selector';
 import { Report } from 'src/app/interfaces/report';
 import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeProfileDialogComponent } from 'src/app/components/employee-profile-dialog/employee-profile-dialog.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-hr-house-detail',
@@ -26,6 +29,8 @@ export class HrHouseDetailComponent implements OnInit {
     private router: Router,
     private houseService: HouseService,
     private store: Store,
+    private http: HttpClient,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +44,22 @@ export class HrHouseDetailComponent implements OnInit {
     // console.log(this.house$)
   }
 
-  onClickCard(rid: string): void {
+  onEmployeeClick(id: string): void {
+    this.http.get('http://localhost:3000/hr/employee/' + id)
+      .subscribe({
+        next: (res: any) => {
+          const profile = res.data.profile
+          this.dialog.open(EmployeeProfileDialogComponent, {
+            data: { profile }
+          });
+        },
+        error: (e) => {
+          alert(e.error.message);
+        }
+      })
+  }
+
+  onReportClick(rid: string): void {
     this.router.navigate(['/hrHousingManagement/house/' + this.houseId + '/report/' + rid]);
   }
 

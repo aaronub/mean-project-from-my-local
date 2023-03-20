@@ -1,78 +1,121 @@
 <app-navbar></app-navbar>
-<div *ngIf="employee">
-    <table>
-        <tr>
-            <th>First Name:</th>
-            <th>{{profile.firstName}}</th>
-        </tr>
-        <tr>
-            <th>Last Name:</th>
-            <th>{{profile.lastName}}</th>
-        </tr>
-        <tr>
-            <th>Address:</th>
-            <th>{{profile.address.apt}} {{profile.address.street}} {{profile.address.city}} {{profile.address.state}}
-                {{profile.address.zip}}</th>
-        </tr>
-        <tr>
-            <th>Cell Phone:</th>
-            <th>{{profile.cellPhoneNumber}}</th>
-        </tr>
-        <tr>
-            <th>Car Information:</th>
-            <th>{{profile.car.make}} {{profile.car.model}} {{profile.car.color}}</th>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <th>{{profile.email}}</th>
-        </tr>
-        <tr>
-            <th>SSN:</th>
-            <th>{{profile.SSN}}</th>
-        </tr>
-        <tr>
-            <th>Date of Birth:</th>
-            <th>{{profile.dateOfBirth}}</th>
-        </tr>
-        <tr>
-            <th>Gender:</th>
-            <th>{{profile.gender ? profile.gender : null}}</th>
-        </tr>
-        <tr>
-            <th>Driver Liscense:</th>
-            <th>{{profile.driverLicense.number}}</th>
-        </tr>
-        <tr>
-            <th>Reference:</th>
-            <th>{{profile.reference.firstName}} {{profile.reference.middleName}} {{profile.reference.lastName}}
-                {{profile.reference.phone}} {{profile.reference.email}} {{profile.reference.relationship}}</th>
-        </tr>
-        <div>
-    
-        </div>
-        <tr *ngFor='let contact of profile.emergencyContacts'>
-            <th>Emergency Contact: </th>
-            <th>{{contact.firstName}}</th>
-            <th>{{contact.middleName}}</th>
-            <th>{{contact.lastName}}</th>
-            <th>{{contact.phone}}</th>
-            <th>{{contact.email}}</th>
-            <th>{{contact.relationship}}</th>
-        </tr>
-    </table>
-    <ul>
-        <li *ngFor='let file of fileList'>
-            {{file}}
-            <a href='http://localhost:3000/user/download/{{file}}'>Download {{file}}</a>
-        </li>
-    </ul>
-    <button (click)='showFileList()'>Show File Summary</button>
-    <div class="flex-column" *ngIf="employee.status === 'Pending'">
-        <mat-form-field class="example-full-width" color="warn">
-            <mat-label>Feedback</mat-label>
-            <textarea matInput [(ngModel)]="feedback" placeholder="Please give feedback if you reject the application"></textarea>
-        </mat-form-field>
+<div *ngIf="employee" class="layout">
+    <div class="application-container">
+        <h3 class="font-bold">Personal Information</h3>
         <div class="flex-row">
+            <mat-list>
+                <mat-list-item>First Name: </mat-list-item>
+                <mat-list-item>Last Name: </mat-list-item>
+                <mat-list-item *ngIf="profile.middleName">Middle Name: </mat-list-item>
+                <mat-list-item *ngIf="profile.preferredName">Preferred Name: </mat-list-item>
+                <mat-list-item>Cell Phone Number: </mat-list-item>
+                <mat-list-item *ngIf="profile.workPhoneNumber">Work Phone Number: </mat-list-item>
+                <mat-list-item>Email: </mat-list-item>
+            </mat-list>
+            <mat-list>
+                <mat-list-item>{{ profile.firstName }}</mat-list-item>
+                <mat-list-item>{{ profile.lastName }}</mat-list-item>
+                <mat-list-item *ngIf="profile.middleName">{{ profile.middleName }}</mat-list-item>
+                <mat-list-item *ngIf="profile.preferredName">{{ profile.preferredName }}</mat-list-item>
+                <mat-list-item>{{ profile.cellPhoneNumber}}</mat-list-item>
+                <mat-list-item *ngIf="profile.workPhoneNumber">{{ profile.workPhoneNumber }}</mat-list-item>
+                <mat-list-item>{{ profile.email }}</mat-list-item>
+            </mat-list>
+            <mat-list>
+                <mat-list-item>SSN: </mat-list-item>
+                <mat-list-item>Date of Birth: </mat-list-item>
+                <mat-list-item *ngIf="profile.gender">Gender: </mat-list-item>
+            </mat-list>
+            <mat-list>
+                <mat-list-item>{{ profile.SSN }}</mat-list-item>
+                <mat-list-item>{{ profile.dateOfBirth | date: 'mediumDate' }}</mat-list-item>
+                <mat-list-item *ngIf="profile.gender">{{ profile.gender }}</mat-list-item>
+            </mat-list>
+        </div>
+
+        <h3 class="font-bold">Address</h3>
+        <mat-list>
+            <mat-list-item>{{ profile.address.street }}</mat-list-item>
+            <mat-list-item *ngIf="profile.address.apt">{{ profile.address.apt }}</mat-list-item>
+            <mat-list-item>{{ profile.address.city + ", " + profile.address.state + " " + profile.address.zip
+                }}</mat-list-item>
+        </mat-list>
+
+        <div *ngIf="profile.car">
+            <h3 class="font-bold">Car</h3>
+            <div class="flex-row">
+                <mat-list>
+                    <mat-list-item>Make: </mat-list-item>
+                    <mat-list-item>Model: </mat-list-item>
+                    <mat-list-item>Color: </mat-list-item>
+                </mat-list>
+                <mat-list>
+                    <mat-list-item>{{ profile.car.make }}</mat-list-item>
+                    <mat-list-item>{{ profile.car.model }}</mat-list-item>
+                    <mat-list-item>{{ profile.car.color }}</mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+
+        <div *ngIf="profile.driverLicense">
+            <h3 class="font-bold">Driver's License</h3>
+            <div class="flex-row">
+                <mat-list>
+                    <mat-list-item>License Number: </mat-list-item>
+                    <mat-list-item>Expiration Date: </mat-list-item>
+                </mat-list>
+                <mat-list>
+                    <mat-list-item>{{ profile.driverLicense.number }}</mat-list-item>
+                    <mat-list-item>{{ profile.driverLicense.expireDate }}</mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+
+        <div *ngIf="profile.reference">
+            <h3 class="font-bold">Reference</h3>
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>{{ profile.reference.firstName + " " + profile.reference.lastName }}</span>
+                    <span matListItemLine>{{ profile.reference.phone }}</span>
+                    <span matListItemLine>{{ profile.reference.email }}</span>
+                    <span matListItemLine>{{ profile.reference.relationship }}</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+
+        <h3 class="font-bold">Emergency Contacts</h3>
+        <div class="flex-row">
+            <mat-list *ngFor="let contact of profile.emergencyContacts">
+                <mat-list-item>
+                    <span matListItemTitle>{{ contact.firstName + " " + contact.lastName }}</span>
+                    <span matListItemLine>{{ contact.phone }}</span>
+                    <span matListItemLine>{{ contact.email }}</span>
+                    <span matListItemLine>{{ contact.relationship }}</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div *ngIf="showDocuments">
+            <h3 class="font-bold">Documents</h3>
+            <ul>
+                <li *ngFor='let file of documentsList | keyvalue'>
+                    {{file.key}}:
+                    <a href='http://localhost:3000/user/download/{{file.value}}'>Download
+                        {{file.value}}</a>
+
+                </li>
+            </ul>
+        </div>
+        <button mat-stroked-button color="primary" (click)='showFileList()'>Show File Summary</button>
+    </div>
+
+
+    <div class="flex-column" *ngIf="employee.status === 'Pending'">
+        <mat-form-field color="warn">
+            <mat-label>Feedback</mat-label>
+            <textarea matInput [(ngModel)]="feedback"
+                placeholder="Please give feedback if you reject the application"></textarea>
+        </mat-form-field>
+        <div class="button-flex-row">
             <button mat-raised-button color="warn" (click)="onReject()">Reject</button>
             <button mat-raised-button color="primary" (click)="onApprove()">Approve</button>
         </div>

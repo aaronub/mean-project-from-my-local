@@ -1,8 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="personal-container">
+        <!-- <div class="personal-container2" > -->
         <form [formGroup]="personalInfoForm" [connectForm]="personalInfoForm$| async" class="form">
-            <P>Name</P>
+            <h1>Name</h1>
             <div>
                 <mat-form-field class="formField">
                     <mat-label>firstName</mat-label>
@@ -14,27 +15,27 @@
                     <input matInput formControlName="lastName" required>
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>middleName</mat-label>
                     <input matInput formControlName="middleName">
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>preferredName</mat-label>
                     <input matInput formControlName="preferredName">
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>SSN</mat-label>
                     <input matInput formControlName="SSN" required>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>date of birth</mat-label>
                     <input matInput [matDatepicker]="picker" required formControlName="dateOfBirth">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-select required formControlName="gender">
                         <mat-option value="Female">Female</mat-option>
                         <mat-option value="Male">Male</mat-option>
@@ -43,7 +44,7 @@
                     <mat-label>gender</mat-label>
                 </mat-form-field>
             </div>
-            <P>Address</P>
+            <h1>Address</h1>
             <div formGroupName="address">
                 <mat-form-field class="formField">
                     <mat-label>building/apt</mat-label>
@@ -66,7 +67,7 @@
                     <input matInput required formControlName="zip">
                 </mat-form-field>
             </div>
-            <p>Contact Info</p>
+            <h1>Contact Info</h1>
             <div>
                 <mat-form-field class="formField">
                     <mat-label>cell phone number</mat-label>
@@ -77,20 +78,20 @@
                     <input matInput formControlName="workPhoneNumber">
                 </mat-form-field>
             </div>
-            <p>Employment</p>
+            <h1>Employment</h1>
             <div>
                 <mat-form-field class="formField">
                     <mat-label>visa title</mat-label>
                     <input matInput required formControlName="title">
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>start date</mat-label>
                     <input matInput required [matDatepicker]="startpicker" formControlName="startDate">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="startpicker"></mat-datepicker-toggle>
                     <mat-datepicker #startpicker></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field class="formField">
                     <mat-label>end date</mat-label>
                     <input matInput required [matDatepicker]="endpicker" formControlName="endDate">
                     <mat-hint>MM/DD/YYYY</mat-hint>
@@ -98,7 +99,6 @@
                     <mat-datepicker #endpicker></mat-datepicker>
                 </mat-form-field>
             </div>
-            <p>Emergency Contact </p>
             <!-- <div>
                 <mat-form-field class="formField">
                     <mat-label>first name</mat-label>
@@ -125,17 +125,74 @@
                     <input matInput required formControlName="relationship">
                 </mat-form-field>
             </div> -->
-            <p>Documents</p>
+            <h1>Documents</h1>
+
             <div>
+                <div *ngFor="let file of documentsList | keyvalue">
+                    {{file.key}}:
+                    <a href='http://localhost:3000/user/download/{{file.value}}'>Download
+                        {{file.value}}</a>
+                </div>
             </div>
         </form>
-
+        <!-- </div> -->
         <button *ngIf="!editable; else elseBlock" mat-raised-button color="primary" (click)="edit()">Edit</button>
         <ng-template #elseBlock>
             <div *ngIf="personalInfoForm.invalid; else saveBlock">
-                <button type="submit" disabled>save</button>
+                <button type="submit" disabled mat-raised-button color="primary">save</button>
             </div>
             <button mat-raised-button color="primary" (click)="cancel()">Cancel</button>
-        </ng-template> <ng-template #saveBlock> <button type="submit" (click)="save()">save</button></ng-template>
+        </ng-template> <ng-template #saveBlock> <button mat-raised-button color="primary" type="submit"
+                (click)="save()">save</button></ng-template>
+    </div>
+    <br />
+    <div class="personal-container">
+        <h1>Emergency Contacts</h1>
+        <form [formGroup]="emergencyForm">
+            <!-- {{emergencyForm.get('emergencyContacts').length}} -->
+            <div formArrayName="emergencyContacts">
+                <div *ngFor="let item of  getControls();let i=index">
+                    <!-- <input [formControlName]="item" /> -->
+                    <span *ngIf="getLength()" (click)="removeAddress(i)">Remove</span>
+                    <div [formGroupName]="i">
+
+                        <mat-form-field class="formField">
+                            <mat-label>first name</mat-label>
+                            <input matInput required formControlName="firstName">
+                        </mat-form-field>
+                        <mat-form-field class="formField">
+                            <mat-label>last name</mat-label>
+                            <input matInput required formControlName="lastName">
+                        </mat-form-field>
+                        <mat-form-field class="formField">
+                            <mat-label>middle name</mat-label>
+                            <input matInput formControlName="middleName">
+                        </mat-form-field>
+                        <mat-form-field class="formField">
+                            <mat-label>phone</mat-label>
+                            <input matInput formControlName="phone">
+                        </mat-form-field>
+                        <mat-form-field class="formField">
+                            <mat-label>email</mat-label>
+                            <input matInput required formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field class="formField">
+                            <mat-label>relationship</mat-label>
+                            <input matInput required formControlName="relationship">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button *ngIf="!editable2; else elseBlock2" mat-raised-button color="primary" (click)="editEC()">Edit</button>
+        <ng-template #elseBlock2>
+            <a (click)="addAddress()" style="cursor: default"> Add +</a>
+            <div *ngIf="emergencyForm.invalid; else saveBlock2">
+                <button type="submit" mat-raised-button color="primary" disabled>save</button>
+            </div>
+            <button mat-raised-button color="primary" (click)="cancelEC()">Cancel</button>
+        </ng-template> <ng-template #saveBlock2> <button type="submit" (click)="saveEC()" mat-raised-button
+                color="primary">save</button></ng-template>
     </div>
 </div>

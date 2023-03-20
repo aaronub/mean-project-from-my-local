@@ -45,6 +45,7 @@ const LicenseSchema = new Schema({
 
 const ProfileSchema = new Schema({
   feedback: String,
+  documentFeedback: String,
   nextStep : Number,
   step: { type: Number, required: true },
   //0:not start

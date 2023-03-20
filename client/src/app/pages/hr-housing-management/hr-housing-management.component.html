@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="layout" *ngFor="let house of houses$ | async">
-    <mat-card (click)="onCardClick(house._id)">
+    <mat-card (click)="onCardClick(house._id)" class="card">
         <mat-grid-list cols="3" rowHeight="2:1">
             <mat-grid-tile>
                 <div class="flex-column">

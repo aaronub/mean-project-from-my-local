@@ -1,6 +1,10 @@
+<div class="login-input-container2">
 <div class="login-input-container">
+<h1>
+    HR PROJECT
+</h1>
     <form [formGroup]="loginForm">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" >
             <mat-label>username</mat-label>
             <input matInput formControlName="username">
         </mat-form-field>
@@ -12,9 +16,11 @@
 
         <mat-form-field appearance="fill">
             <mat-label>password</mat-label>
-            <input matInput  [type]="showPassword ? 'text' : 'password'" name="password" formControlName="password">
+            <input matInput [type]="showPassword ? 'text' : 'password'" name="password" formControlName="password">
             <mat-icon matSuffix (click)="togglePasswordVisibility()">visibility</mat-icon>
         </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="login()">Login</button>
-</div>
+    <button mat-raised-button  (click)="login()">Login</button>
+    <div class="style"></div>
+    <div class="style2"></div>
+</div></div>

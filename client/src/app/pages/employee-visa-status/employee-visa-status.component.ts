@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { FileService } from "../../services/file.service";
 import { Store } from "@ngrx/store";
+import { EmployeeAction } from 'src/app/store/employee/employee.action';
 import { selectEmployee } from "../../store/employee/employee.selector";
 import { HttpClient } from '@angular/common/http';
 
@@ -16,6 +17,28 @@ export class EmployeeVisaStatusComponent implements OnInit {
   constructor(private fileService: FileService, private store: Store, private http: HttpClient) { }
 
   ngOnInit(): void {
+    const token = window.localStorage.getItem('JWT_TOKEN');
+    console.log(token)
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${token}`,
+    });
+    fetch('http://localhost:3000/user/getEmployeeInfo', {
+      method: 'GET',
+      headers
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('data =', data)
+        const employeeInfo = data.user
+        this.store.dispatch(EmployeeAction.setEmployeeInfo({ employeeInfo }))
+      })
+
     this.users$
       .pipe(catchError((err) => of([{ err }])))
       .subscribe((user: any) => {
@@ -23,7 +46,9 @@ export class EmployeeVisaStatusComponent implements OnInit {
           console.log('inside this.users$')
           this.username = user.username
           if (user.profile) {
-            this.next = user.profile.nextStep
+            this.next = user.profile.nextStep;
+            if( user.profile.documentFeedback)
+            this.fb = user.profile.documentFeedback;
           }
         }
       })
@@ -40,7 +65,7 @@ export class EmployeeVisaStatusComponent implements OnInit {
     7: "wait for HR approval",
   };
   next = 1; //get from profile.nextStep;
-
+  fb = "no feedback yet."
   getStep(step: number | string): string | number {
     return this.nextStep[step as keyof typeof this.nextStep];
   }
@@ -72,7 +97,8 @@ export class EmployeeVisaStatusComponent implements OnInit {
   }
 
 
-  onFileUpload() {
+  onFileUpload(event: any) {
+    event.target.disabled = true;
     const fileForm = new FormData();
     fileForm.append('file', this.fileObj);
     console.log('imageForm=', fileForm)
@@ -81,6 +107,9 @@ export class EmployeeVisaStatusComponent implements OnInit {
       .subscribe((fileName: any) => {
         console.log('fileName =', fileName[0])
         console.log('this.username =', this.username)
+        window.alert('File uploaded')
+        window.location.reload()
+
       })
 
     this.http.put('http://localhost:3000/user/employeeVisa',
@@ -88,6 +117,7 @@ export class EmployeeVisaStatusComponent implements OnInit {
       .subscribe((profile: any) => {
         console.log('profile =', profile)
       });
+
 
     // fetch('http://localhost:3000/user/employeeVisa', {
     //   method: 'PUT',
