@@ -132,4 +132,4 @@ import { RejectDialogComponent } from './components/reject-dialog/reject-dialog.
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

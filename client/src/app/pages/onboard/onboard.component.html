@@ -3,88 +3,90 @@
     <h1>Onboarding Application</h1>
     <br>
     <form #myForm="ngForm" *ngIf="status === 'Not Started' || status === 'Rejected'">
-        <p *ngIf="status === 'Rejected'">{{ "Your application has been rejected. Here is the feedfack: " + profile.feedback + ". Please make changes and resubmit." }}</p>
+        <p *ngIf="status === 'Rejected'">{{ "Your application has been rejected. Here is the feedfack: " +
+            profile.feedback + ". Please make changes and resubmit." }}</p>
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>First Name</mat-label>
-                    <input matInput [(ngModel)]="firstName" name="firstName" required>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput [(ngModel)]="lastName" name="lastName" required>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Middle Name</mat-label>
-                    <input matInput [(ngModel)]="middleName" name="middleName">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Preferred Name</mat-label>
-                    <input matInput [(ngModel)]="preferredName" name="preferredName">
-                </mat-form-field>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>First Name</mat-label>
+                        <input matInput [(ngModel)]="firstName" name="firstName" required>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput [(ngModel)]="lastName" name="lastName" required>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput [(ngModel)]="middleName" name="middleName">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Preferred Name</mat-label>
+                        <input matInput [(ngModel)]="preferredName" name="preferredName">
+                    </mat-form-field>
+                </td>
+            </tr>
         </table>
 
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput value={{email}} disabled>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>SSN</mat-label>
-                    <input matInput [(ngModel)]="ssn" name="ssn" required>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="birthPicker" [(ngModel)]="dateOfBirth" name="dateOfBirth" required>
-                    <mat-datepicker-toggle matIconSuffix [for]="birthPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #birthPicker></mat-datepicker>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Gender</mat-label>
-                    <mat-select [(ngModel)]="gender" name="gender" required>
-                        <mat-option value="male">Male</mat-option>
-                        <mat-option value="female">Female</mat-option>
-                        <mat-option value="not_answer">I do not wish to answer</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput value={{email}} disabled>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>SSN</mat-label>
+                        <input matInput [(ngModel)]="ssn" name="ssn" required>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="birthPicker" [(ngModel)]="dateOfBirth" name="dateOfBirth"
+                            required>
+                        <mat-datepicker-toggle matIconSuffix [for]="birthPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #birthPicker></mat-datepicker>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Gender</mat-label>
+                        <mat-select [(ngModel)]="gender" name="gender" required>
+                            <mat-option value="male">Male</mat-option>
+                            <mat-option value="female">Female</mat-option>
+                            <mat-option value="not_answer">I do not wish to answer</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
         </table>
 
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Cell Phone Number</mat-label>
-                    <input matInput [(ngModel)]="cellPhone" name="cellPhone" required>
-                    <mat-icon matSuffix>phone</mat-icon>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Work Phone Number</mat-label>
-                    <input matInput [(ngModel)]="workPhone" name="workPhone">
-                    <mat-icon matSuffix>phone</mat-icon>
-                </mat-form-field>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cell Phone Number</mat-label>
+                        <input matInput [(ngModel)]="cellPhone" name="cellPhone" required>
+                        <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Work Phone Number</mat-label>
+                        <input matInput [(ngModel)]="workPhone" name="workPhone">
+                        <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+                </td>
+            </tr>
         </table>
 
         <!-- <mat-form-field>
@@ -100,64 +102,64 @@
         <br><br>
         <h3>Current Address</h3>
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Building/apt #</mat-label>
-                    <input matInput [(ngModel)]="apt" name="apt">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Street</mat-label>
-                    <input matInput [(ngModel)]="street" name="street" required>
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>City</mat-label>
-                    <input matInput [(ngModel)]="city" name="city" required>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>State</mat-label>
-                    <input matInput [(ngModel)]="state" name="state" required>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Zip</mat-label>
-                    <input matInput [(ngModel)]="zip" name="zip" required>
-                </mat-form-field>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Building/apt #</mat-label>
+                        <input matInput [(ngModel)]="apt" name="apt">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Street</mat-label>
+                        <input matInput [(ngModel)]="street" name="street" required>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput [(ngModel)]="city" name="city" required>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>State</mat-label>
+                        <input matInput [(ngModel)]="state" name="state" required>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Zip</mat-label>
+                        <input matInput [(ngModel)]="zip" name="zip" required>
+                    </mat-form-field>
+                </td>
+            </tr>
         </table>
 
         <h3>Car Information</h3>
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Make</mat-label>
-                    <input matInput [(ngModel)]="carMake" name="carMake">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Model</mat-label>
-                    <input matInput [(ngModel)]="carModel" name="carModel">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Color</mat-label>
-                    <input matInput [(ngModel)]="carColor" name="carColor">
-                </mat-form-field>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Make</mat-label>
+                        <input matInput [(ngModel)]="carMake" name="carMake">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Model</mat-label>
+                        <input matInput [(ngModel)]="carModel" name="carModel">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Color</mat-label>
+                        <input matInput [(ngModel)]="carColor" name="carColor">
+                    </mat-form-field>
+                </td>
+            </tr>
         </table>
 
         <h3>Work Authorization</h3>
@@ -196,46 +198,50 @@
             </div>
 
             <table>
-            <tr>
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Start Date</mat-label>
-                        <input matInput [matDatepicker]="startPicker" [(ngModel)]="visaStartDate" name="visaStartDate" required>
-                        <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #startPicker></mat-datepicker>
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>End Date</mat-label>
-                        <input matInput [matDatepicker]="endPicker" [(ngModel)]="visaEndDate" name="visaEndDate" required>
-                        <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #endPicker></mat-datepicker>
-                    </mat-form-field>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="startPicker" [(ngModel)]="visaStartDate"
+                                name="visaStartDate" required>
+                            <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #startPicker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>End Date</mat-label>
+                            <input matInput [matDatepicker]="endPicker" [(ngModel)]="visaEndDate" name="visaEndDate"
+                                required>
+                            <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #endPicker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
             </table>
         </div>
 
-        <mat-checkbox [(ngModel)]="hasDriverLicense" name="hasDriverLicense">Do you have a driver's license?</mat-checkbox>
+        <mat-checkbox [(ngModel)]="hasDriverLicense" name="hasDriverLicense">Do you have a driver's
+            license?</mat-checkbox>
         <div *ngIf="hasDriverLicense">
             <table>
-            <tr>
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Driver's License Number</mat-label>
-                        <input matInput [(ngModel)]="driverLicenseNumber" name="driverLicenseNumber">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Expiration Date</mat-label>
-                        <input matInput [matDatepicker]="expirePicker" [(ngModel)]="driverLicenseExpiration" name="driverLicenseExpiration">
-                        <mat-datepicker-toggle matIconSuffix [for]="expirePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #expirePicker></mat-datepicker>
-                    </mat-form-field>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Driver's License Number</mat-label>
+                            <input matInput [(ngModel)]="driverLicenseNumber" name="driverLicenseNumber">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Expiration Date</mat-label>
+                            <input matInput [matDatepicker]="expirePicker" [(ngModel)]="driverLicenseExpiration"
+                                name="driverLicenseExpiration">
+                            <mat-datepicker-toggle matIconSuffix [for]="expirePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expirePicker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
             </table>
 
             <div *ngIf="hasDriverLicense">
@@ -248,68 +254,23 @@
         <br><br>
         <h3>Reference</h3>
         <table>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>First Name</mat-label>
-                    <input matInput [(ngModel)]="referenceFirstName" name="referenceFirstName">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput [(ngModel)]="referenceLastName" name="referenceLastName">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Middle Name</mat-label>
-                    <input matInput [(ngModel)]="referenceMiddleName" name="referenceMiddleName">
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Phone</mat-label>
-                    <input matInput [(ngModel)]="referencePhone" name="referencePhone">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput [(ngModel)]="referenceEmail" name="referenceEmail">
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="fill">
-                    <mat-label>Relationship</mat-label>
-                    <input matInput [(ngModel)]="referenceRelationship" name="referenceRelationship">
-                </mat-form-field>
-            </td>
-        </tr>
-        </table>
-
-        <h3>Emergency Contacts</h3>
-        <div *ngFor="let contact of emergencyContacts; let i = index">
-            <table>
             <tr>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>First Name</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].firstName" name="emergencyFirstName">
+                        <input matInput [(ngModel)]="referenceFirstName" name="referenceFirstName">
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>Last Name</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].lastName" name="emergencyLastName">
+                        <input matInput [(ngModel)]="referenceLastName" name="referenceLastName">
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>Middle Name</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].middleName" name="emergencyMiddleName">
+                        <input matInput [(ngModel)]="referenceMiddleName" name="referenceMiddleName">
                     </mat-form-field>
                 </td>
             </tr>
@@ -317,23 +278,69 @@
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>Phone</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].phone" name="emergencyPhone">
+                        <input matInput [(ngModel)]="referencePhone" name="referencePhone">
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].email" name="emergencyEmail">
+                        <input matInput [(ngModel)]="referenceEmail" name="referenceEmail">
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill">
                         <mat-label>Relationship</mat-label>
-                        <input matInput [(ngModel)]="emergencyContacts[i].relationship" name="emergencyRelationship">
+                        <input matInput [(ngModel)]="referenceRelationship" name="referenceRelationship">
                     </mat-form-field>
                 </td>
-                <button mat-stroked-button (click)="removeEmergencyContact(i)">Remove</button>
             </tr>
+        </table>
+
+        <h3>Emergency Contacts</h3>
+        <div *ngFor="let contact of emergencyContacts; let i = index">
+            <table>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>First Name</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].firstName" name="emergencyFirstName">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].lastName" name="emergencyLastName">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Middle Name</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].middleName" name="emergencyMiddleName">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Phone</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].phone" name="emergencyPhone">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].email" name="emergencyEmail">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Relationship</mat-label>
+                            <input matInput [(ngModel)]="emergencyContacts[i].relationship"
+                                name="emergencyRelationship">
+                        </mat-form-field>
+                    </td>
+                    <button mat-stroked-button (click)="removeEmergencyContact(i)">Remove</button>
+                </tr>
             </table>
         </div>
         <button mat-stroked-button (click)="addEmergencyContact()">Add Contact</button>
@@ -391,7 +398,8 @@
         <mat-list>
             <mat-list-item>{{ profile.address.street }}</mat-list-item>
             <mat-list-item *ngIf="profile.address.apt">{{ profile.address.apt }}</mat-list-item>
-            <mat-list-item>{{ profile.address.city + ", " + profile.address.state + " " + profile.address.zip }}</mat-list-item>
+            <mat-list-item>{{ profile.address.city + ", " + profile.address.state + " " + profile.address.zip
+                }}</mat-list-item>
         </mat-list>
 
         <div *ngIf="profile.car">
